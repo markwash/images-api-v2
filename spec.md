@@ -271,7 +271,7 @@ Response body will be a list of images available to the client. For example:
 
 ####Get an Image
 
-**GET /v2/image/<IMAGE_ID>**
+**GET /v2/images/<IMAGE_ID>**
 
 Request body ignored.
 
@@ -306,7 +306,7 @@ The response will be empty with an HTTP 204 status code.
 
 ####Store Image File
 
-**PUT /v2/image/<IMAGE_ID>/file**
+**PUT /v2/images/<IMAGE_ID>/file**
 
 NOTE: An image record must exist before a client can store binary image data with it.
 
@@ -316,7 +316,7 @@ Response status will be 204.
 
 ####Get Image File
 
-**GET /v2/image/<IMAGE_ID>/file**
+**GET /v2/images/<IMAGE_ID>/file**
 
 Request body ignored.
 
