@@ -293,6 +293,15 @@ Response body will be a single image entity. Using **GET /v2/image/da3b75d9-3f4a
     }
 
 
+####Delete an Image
+
+**DELETE /v2/images/<IMAGE_ID>**
+
+Encode the ID of the image into the request URI. Request body is ignored.
+
+The response will be empty with an HTTP 204 status code.
+
+
 ### Binary Data API
 
 ####Store Image File
