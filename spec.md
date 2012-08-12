@@ -165,7 +165,7 @@ Response will contain a Location header which can be used to interact with the i
 
 ####Update an Image
 
-**PUT /v2/images/<IMAGE_ID>**
+**PUT /v2/images/\<IMAGE_ID\>**
 
 Request body must be JSON-encoded and conform to the `image` JSON schema. Using **PUT /v2/images/e7db3b45-8db7-47ad-8109-3fb55c2c24fd** as an example:
 
@@ -192,7 +192,7 @@ Response body will represent the updated `image` entity. For example:
 
 ####Add an Image Tag
 
-**PUT /v2/images/<IMAGE_ID>/tags/<TAG>**
+**PUT /v2/images/\<IMAGE_ID\>/tags/\<TAG\>**
 
 The the tag you want to add should be encoded into the request URI. For example, to tag image e7db3b45-8db7-47ad-8109-3fb55c2c24fd with 'miracle', you would **PUT /v2/images/e7db3b45-8db7-47ad-8109-3fb55c2c24fd/tags/miracle**. The request body is ignored. 
 
@@ -203,7 +203,7 @@ An HTTP status of 204 will be returned.
 
 ####Delete an Image Tag
 
-**PUT /v2/images/<IMAGE_ID>/tags/<TAG>**
+**PUT /v2/images/\<IMAGE_ID\>/tags/\<TAG\>**
 
 The tag you want to delete should be encoded into the request URI. For example, to remove the tag 'miracle' from image e7db3b45-8db7-47ad-8109-3fb55c2c24fd, you would **DELETE /v2/images/e7db3b45-8db7-47ad-8109-3fb55c2c24fd/tags/miracle**. The request body is ignored.
 
@@ -271,7 +271,7 @@ Response body will be a list of images available to the client. For example:
 
 ####Get an Image
 
-**GET /v2/images/<IMAGE_ID>**
+**GET /v2/images/\<IMAGE_ID\>**
 
 Request body ignored.
 
@@ -295,7 +295,7 @@ Response body will be a single image entity. Using **GET /v2/image/da3b75d9-3f4a
 
 ####Delete an Image
 
-**DELETE /v2/images/<IMAGE_ID>**
+**DELETE /v2/images/\<IMAGE_ID\>**
 
 Encode the ID of the image into the request URI. Request body is ignored.
 
@@ -306,7 +306,7 @@ The response will be empty with an HTTP 204 status code.
 
 ####Store Image File
 
-**PUT /v2/images/<IMAGE_ID>/file**
+**PUT /v2/images/\<IMAGE_ID\>/file**
 
 NOTE: An image record must exist before a client can store binary image data with it.
 
@@ -316,7 +316,7 @@ Response status will be 204.
 
 ####Get Image File
 
-**GET /v2/images/<IMAGE_ID>/file**
+**GET /v2/images/\<IMAGE_ID\>/file**
 
 Request body ignored.
 
