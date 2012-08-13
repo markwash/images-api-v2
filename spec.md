@@ -324,7 +324,6 @@ Request body ignored.
 
 Response body will be the raw binary data that represents the actual virtual disk. The Content-Type header will be `application/octet-stream`.
 
+The [Content-MD5](http://www.ietf.org/rfc/rfc1864.txt) header will contain an MD5 checksum of the image data. Clients are encouraged to verify the integrity of the image data they recieve using this checksum.
+
 If no image data has been stored, an HTTP status of 204 will be returned.
-
-
-
