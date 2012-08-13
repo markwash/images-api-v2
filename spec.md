@@ -4,7 +4,7 @@
 
 **Two-part versioning scheme**
 
-For example, 'v2.3' would break down to major version 2 and minor version 3
+The v2 API will follow the lead of the v1 API and use a major version and a minor version. For example, 'v2.3' would break down to major version 2 and minor version 3
 
 
 **Backwards-compatibility**
