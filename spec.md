@@ -22,7 +22,7 @@ The following HTTP status codes are all valid responses:
 * 301 - redirection
 * 400 - invalid request (syntax, value, etc)
 * 401 - unauthenticated client
-* 403 - unable to perform action
+* 403 - authenticated client unable to perform action
 * 409 - that action is impossible due to some (possibly permanent) circumstance
 
 ###Authentication and Authorization
