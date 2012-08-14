@@ -73,7 +73,8 @@ Response body will contain a json-schema document representing an `images` entit
                         "id": {"type": "string"}, 
                         "name": {"type": "string"}, 
                         "visibility": {"enum": ["public", "private"]},
-                        "status": {"type": "string"}, 
+                        "status": {"type": "string"},
+                        "protected": {"type": "boolean"},
                         "tags": {
                             "type": "array",
                             "items": {"type": "string"}
@@ -119,7 +120,8 @@ Response body will contain a json-schema document representing an `image`. For e
             "id": {"type": "string"}, 
             "name": {"type": "string"}, 
             "visibility": {"enum": ["public", "private"]},
-            "status": {"type": "string"}, 
+            "status": {"type": "string"},
+            "protected": {"type": "boolean"},
             "tags": {
                 "type": "array",
                 "items": {"type": "string"}
@@ -310,6 +312,8 @@ Response body will be a single image entity. Using **GET /v2/image/da3b75d9-3f4a
 **DELETE /v2/images/\<IMAGE_ID\>**
 
 Encode the ID of the image into the request URI. Request body is ignored.
+
+Images with the "protected" attribute set to "True" cannot be deleted and the response will have an HTTP 403 status code. You must first set the "protected" attribute to "False" and then perform the delete.
 
 The response will be empty with an HTTP 204 status code.
 
