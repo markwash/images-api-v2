@@ -359,7 +359,7 @@ The strings $OS_IMAGE_URL and $OS_AUTH_TOKEN represent variables defined in the 
 
 ```
 HTTP/1.1 201 Created
-Content-Length: 434
+Content-Length: 451
 Content-Type: application/json; charset=UTF-8
 Location: http://localhost:9292/v2/images/7b97f37c-899d-44e8-aaa0-543edbc4eaad
 Date: Tue, 14 Aug 2012 00:46:48 GMT
