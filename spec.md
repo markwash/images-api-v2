@@ -33,9 +33,9 @@ Note that the HTTP status codes 401 and 403 are included in this specification a
 
 ###Request/Response Content Format
 
-The v2 Images API primarily accepts and serves JSON-encoded data. In certain cases it also accepts and serves binary image data. Requests that send JSON-encoded data must have the proper media type in their Content-Type header: `application/json`. Requests that upload image data should use the media type `application/octet-stream`.
+The v2 Images API primarily accepts and serves JSON-encoded data. In certain cases it also accepts and serves binary image data. Requests that send JSON-encoded data must have the proper media type in their Content-Type header: 'application/json'. Requests that upload image data should use the media type 'application/octet-stream'.
 
-Each call only responds in one format, so clients should not worry about sending an Accept header. It will be ignored. Assume a response will be formatted as `application/json` unless otherwise stated in this spec.
+Each call only responds in one format, so clients should not worry about sending an Accept header. It will be ignored. Assume a response will be formatted as 'application/json' unless otherwise stated in this spec.
 
 
 ###JSON Schemas
@@ -318,7 +318,7 @@ The response will be empty with an HTTP 204 status code.
 
 NOTE: An image record must exist before a client can store binary image data with it.
 
-Request Content-Type must be `application/octet-stream`. Complete contents of request body will be stored and become accessible in its entirety by issuing a GET request to the same URI.
+Request Content-Type must be 'application/octet-stream'. Complete contents of request body will be stored and become accessible in its entirety by issuing a GET request to the same URI.
 
 Response status will be 204.
 
@@ -328,7 +328,7 @@ Response status will be 204.
 
 Request body ignored.
 
-Response body will be the raw binary data that represents the actual virtual disk. The Content-Type header will be `application/octet-stream`.
+Response body will be the raw binary data that represents the actual virtual disk. The Content-Type header will be 'application/octet-stream'.
 
 The [Content-MD5](http://www.ietf.org/rfc/rfc1864.txt) header will contain an MD5 checksum of the image data. Clients are encouraged to verify the integrity of the image data they recieve using this checksum.
 
