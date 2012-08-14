@@ -313,7 +313,7 @@ Response body will be a single image entity. Using **GET /v2/image/da3b75d9-3f4a
 
 Encode the ID of the image into the request URI. Request body is ignored.
 
-Images with the "protected" attribute set to "True" cannot be deleted and the response will have an HTTP 403 status code. You must first set the "protected" attribute to "False" and then perform the delete.
+Images with the 'protected' attribute set to true (boolean) cannot be deleted and the response will have an HTTP 403 status code. You must first set the 'protected' attribute to false (boolean) and then perform the delete.
 
 The response will be empty with an HTTP 204 status code.
 
