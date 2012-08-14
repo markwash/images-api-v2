@@ -271,6 +271,12 @@ Response body will be a list of images available to the client. For example:
         "schema": "/v2/schemas/images"
     }
 
+TODO: document pagination query parameters and schema bits
+
+TODO: document filtering query parameters
+
+TODO: document sorting query parameters
+
 ####Get an Image
 
 **GET /v2/images/\<IMAGE_ID\>**
