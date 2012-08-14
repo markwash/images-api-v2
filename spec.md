@@ -155,7 +155,7 @@ Request body must be JSON-encoded and conform to the `image` JSON schema. For ex
         "tags": ["ubuntu", "quantal"]
     }
 
-Response will contain a Location header which can be used to interact with the image directly. Response body will represent the created `image` entity. For example:
+Successful HTTP response will be 201 Created with a Location header containing the newly-created URI for the image. Response body will represent the created `image` entity. For example:
 
     {
         "id": "e7db3b45-8db7-47ad-8109-3fb55c2c24fd",
@@ -358,7 +358,7 @@ The strings $OS_IMAGE_URL and $OS_AUTH_TOKEN represent variables defined in the 
 ```
 
 ```
-HTTP/1.1 200 OK
+HTTP/1.1 201 Created
 Content-Length: 434
 Content-Type: application/json; charset=UTF-8
 Location: http://localhost:9292/v2/images/7b97f37c-899d-44e8-aaa0-543edbc4eaad
