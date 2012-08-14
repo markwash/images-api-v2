@@ -371,8 +371,8 @@ Date: Tue, 14 Aug 2012 00:46:48 GMT
     "visibility": "private",
     "protected": false,
     "tags": ["ubuntu", "12.10", "quantal"],
-    "created_at": "2012-08-14T00:45:05Z",
-    "updated_at": "2012-08-14T00:45:05Z",
+    "created_at": "2012-08-14T00:46:48Z",
+    "updated_at": "2012-08-14T00:46:48Z",
     "file": "/v2/images/7b97f37c-899d-44e8-aaa0-543edbc4eaad/file",
     "self": "/v2/images/7b97f37c-899d-44e8-aaa0-543edbc4eaad",
     "schema": "/v2/schemas/image"
