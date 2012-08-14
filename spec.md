@@ -37,16 +37,20 @@ The v2 Images API primarily accepts and serves JSON-encoded data. In certain cas
 
 Each call only responds in one format, so clients should not worry about sending an Accept header. It will be ignored. Assume a response will be formatted as 'application/json' unless otherwise stated in this spec.
 
+###Image Entities
+
+An image entity is represented by a JSON-encoded data structure and its raw binary data. 
+
+An image entity has an identifier (ID) that is guaranteed to be unique within the endpoint to which it belongs. The ID is used as a token in request URIs to interact with that specific image.
+
+An image is always guaranteed to have the following attributes: id, status, visibility, protected, tags, created_at, file and self. The other attribtues defined in the `image` schema below are guaranteed to be defined, but will only be returned with an image entity if they have been explicitly set.
+
+A client may set arbitrarily-named attributes on their images if the `image` json-schema allows it. These user-defined attributes will appear like any other image attributes. See [documentation](http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.4) of the additionalProperties json-schema attribute.
 
 ###JSON Schemas
 
-The necessary [json-schema](http://tools.ietf.org/html/draft-zyp-json-schema-03) documents will be provided at predictable URIs (/v2/schemas/<entity>). A consumer should be able to validate server responses and client requests based on the published schemas. The schemas contained in this document are only examples and should not be used to validate your requests. A client should **always** fetch schemas from the server. Currently, schemas for individual `image` entities and their parent `images` container are provided.
+The necessary [json-schema](http://tools.ietf.org/html/draft-zyp-json-schema-03) documents will be provided at predictable URIs. A consumer should be able to validate server responses and client requests based on the published schemas. The schemas contained in this document are only examples and should not be used to validate your requests. A client should **always** fetch schemas from the server.
 
-###Image Entities
-
-An image entity is represented by a JSON-encoded data structure and its raw binary data. An image entity has an identifier (ID) that is guaranteed to be unique within the endpoint to which it belongs. The ID is used as a token in request URIs to interact with a that specific image.
-
-A client may set arbitrarily-named attributes on their images if the `image` json-schema allows it. These user-defined attributes will appear like any other image attributes. See [documentation](http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.4) of the additionalProperties json-schema attribute.
 
 ###Metadata API
 
