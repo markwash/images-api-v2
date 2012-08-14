@@ -381,7 +381,33 @@ Date: Tue, 14 Aug 2012 00:46:48 GMT
 
 ####Update the Image
 
-TODO
+```
+% curl -i -X PUT -H "X-Auth-Token: $OS_AUTH_TOKEN" -H "Content-Type: application/json" \
+       -d '{"login_user": "root"}' \
+       $OS_IMAGE_URL/v2/images/7b97f37c-899d-44e8-aaa0-543edbc4eaad
+```
+
+```
+HTTP/1.1 200 OK
+Content-Length: 477
+Content-Type: application/json; charset=UTF-8
+Date: Tue, 14 Aug 2012 00:46:50 GMT
+
+{
+    "id": "7b97f37c-899d-44e8-aaa0-543edbc4eaad",
+    "name": "Ubuntu 12.10",
+    "status": "queued",
+    "visibility": "private",
+    "protected": false,
+    "tags": ["ubuntu", "12.10", "quantal"],
+    "login_user": "root",
+    "created_at": "2012-08-14T00:46:48Z",
+    "updated_at": "2012-08-14T00:46:50Z",
+    "file": "/v2/images/7b97f37c-899d-44e8-aaa0-543edbc4eaad/file",
+    "self": "/v2/images/7b97f37c-899d-44e8-aaa0-543edbc4eaad",
+    "schema": "/v2/schemas/image"
+}
+```
 
 ####Upload Binary Image Data
 
