@@ -17,13 +17,13 @@ The interface will not be reduced with subsequent minor version releases, it wil
 The following HTTP status codes are all valid responses:
 
 * 200 - generic successful response, expect a body
-* 201 - entity created, expect a new id in headers
+* 201 - entity created, expect a body and a Location header
 * 204 - successful response without body
 * 301 - redirection
-* 400 - invalid request syntax
+* 400 - invalid request (syntax, value, etc)
 * 401 - unauthenticated client
-* 403 - you don't have the proper permissions to do that
-* 409 - that is impossible to do right now
+* 403 - unable to perform action
+* 409 - that action is impossible due to some (possibly permanent) circumstance
 
 ###Authentication and Authorization
 
