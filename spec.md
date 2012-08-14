@@ -352,7 +352,7 @@ The strings $OS_IMAGE_URL and $OS_AUTH_TOKEN represent variables defined in the 
 
 ####Create an Image
 ```
-% curl -i -H "X-Auth-Token: $OS_AUTH_TOKEN" -H "Content-Type: application/json" \
+% curl -i -X POST -H "X-Auth-Token: $OS_AUTH_TOKEN" -H "Content-Type: application/json" \
        -d '{"name": "Ubuntu 12.10", "tags": ["ubuntu", "12.10", "quantal"]}' \
        $OS_IMAGE_URL/v2/images
 ```
