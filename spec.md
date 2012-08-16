@@ -24,6 +24,7 @@ The following HTTP status codes are all valid responses:
 * 401 - unauthenticated client
 * 403 - authenticated client unable to perform action
 * 409 - that action is impossible due to some (possibly permanent) circumstance
+* 415 - unsupported media type
 
 ###Authentication and Authorization
 
@@ -33,7 +34,7 @@ Note that the HTTP status codes 401 and 403 are included in this specification a
 
 ###Request/Response Content Format
 
-The v2 Images API primarily accepts and serves JSON-encoded data. In certain cases it also accepts and serves binary image data. Requests that send JSON-encoded data must have the proper media type in their Content-Type header: 'application/json'. Requests that upload image data should use the media type 'application/octet-stream'.
+The v2 Images API primarily accepts and serves JSON-encoded data. In certain cases it also accepts and serves binary image data. Most requests that send JSON-encoded data must have the proper media type in their Content-Type header: 'application/json'. HTTP PATCH requests must use the patch media type defined for the entity they intend to modify. Requests that upload image data should use the media type 'application/octet-stream'.
 
 Each call only responds in one format, so clients should not worry about sending an Accept header. It will be ignored. Assume a response will be formatted as 'application/json' unless otherwise stated in this spec.
 
@@ -173,14 +174,14 @@ Successful HTTP response will be 201 Created with a Location header containing t
 
 ####Update an Image
 
-**PUT /v2/images/\<IMAGE_ID\>**
+**PATCH /v2/images/\<IMAGE_ID\>**
 
-Request body must be JSON-encoded and conform to the `image` JSON schema. Using **PUT /v2/images/e7db3b45-8db7-47ad-8109-3fb55c2c24fd** as an example:
+Request body must conform to the "application/x-openstack-image-json-patch-2.0" media type, documented in Appendix B. Using **PATCH /v2/images/e7db3b45-8db7-47ad-8109-3fb55c2c24fd** as an example:
 
-    {
-        "name": "Fedora 17",
-        "tags": ["fedora", "beefy"]
-    }
+    [
+        {"replace": "/name", "value": "Fedora 17"},
+        {"replace": "/tags", "value": ["fedora", "beefy"]}
+    ]
 
 Response body will represent the updated `image` entity. For example:
 
@@ -196,6 +197,20 @@ Response body will represent the updated `image` entity. For example:
         "file": "/v2/images/e7db3b45-8db7-47ad-8109-3fb55c2c24fd/file", 
         "schema": "/v2/schemas/image"
     }
+
+The PATCH method can also be used to add or remove image properties. To add a custom user-defined property such as "login-user" to an image, use the following example request.
+
+    [
+        {"add": "/login-user", "value": "kvothe"}
+    ]
+    
+Similarly, to remove a property such as "login-user" from an image, use the following example request.
+
+    [
+        {"remove": "/login-user"}
+    ]
+
+See Appendix B for more details about the "application/x-openstack-image-json-patch-v2.0" media type.
 
 
 ####Add an Image Tag
@@ -355,7 +370,7 @@ The [Content-MD5](http://www.ietf.org/rfc/rfc1864.txt) header will contain an MD
 
 If no image data has been stored, an HTTP status of 204 will be returned.
 
-###Appendix: cURL Examples
+###Appendix A: cURL Examples
 
 This section is intended to provide a series of commands a typical client of the API might use to create and modify an image. 
 
@@ -433,3 +448,86 @@ TODO
 ####Delete Image
 
 TODO
+
+
+###Appendix B: HTTP PATCH media types
+
+####Overview
+
+The HTTP PATCH request must provide a media type for the server to determine how the patch should be applied to an image resource. An unsupported media type will result in an HTTP error response with the 415 status code. For image resources, the only supported media type for patch requests is "application/x-openstack-image-json-patch-v2.0".
+
+The non-standard "application/x-openstack-image-json-patch-v2.0" media type is intended to provide a useful and compatible subset of the functionality defined in the standard ["application/json-patch" media type](http://tools.ietf.org/html/draft-ietf-appsawg-json-patch).
+
+####Restricted JSON Pointers
+
+The "application/x-openstack-image-json-patch-v2.0" media type defined in this appendix adopts a restricted form of [JSON-Pointers](http://tools.ietf.org/html/draft-pbryan-zyp-json-pointer). A restricted JSON pointer is a [Unicode](http://tools.ietf.org/html/draft-ietf-appsawg-json-pointer-03#ref-Unicode) string containing a sequence of exactly one reference token, prefixed by a '/' (%x2F) character.
+
+If a reference token contains '~' (%x7E) or '/' (%x2F) characters, they must be encoded as '~0' and '~1' respectively.
+
+Its ABNF syntax is:
+
+    restricted-json-pointer = "/" reference-token
+    reference-token = *( unescaped / escaped )
+    unescaped = %x00-2E / %x30-7D / %x7F-10FFFF
+    escaped = "~" ( "0" / "1" )
+
+Restricted JSON Pointers are evaluated as ordinary JSON pointers per [JSON-Pointer](http://tools.ietf.org/html/draft-pbryan-zyp-json-pointer).
+
+For example, given the `image` entity
+
+    {
+        "id": "da3b75d9-3f4a-40e7-8a2c-bfab23927dea", 
+        "name": "cirros-0.3.0-x86_64-uec-ramdisk", 
+        "status": "active", 
+        "visibility": "public", 
+        "size": 2254249, 
+        "checksum": "2cec138d7dae2aa59038ef8c9aec2390",
+        "~/.ssh/": "present", 
+        "tags": ["ping", "pong"],                
+        "created_at": "2012-08-10T19:23:50Z", 
+        "updated_at": "2012-08-10T19:23:50Z", 
+        "self": "/v2/images/da3b75d9-3f4a-40e7-8a2c-bfab23927dea", 
+        "file": "/v2/images/da3b75d9-3f4a-40e7-8a2c-bfab23927dea/file", 
+        "schema": "/v2/schemas/image"
+    }
+
+the following restricted JSON pointers evaluate to the accompanying values:
+
+    "/name"        "cirros-0.3.0-x86_64-uec-ramdisk"
+    "/size"        2254249
+    "/tags"        ["ping", "pong"]
+    "/~0~1.ssh~1"  "present"
+
+####Operations
+
+The "application/x-openstack-image-json-patch-v2.0" media type supports a subset of the operations defined in the "application/json-patch" media type. The operation to perform is expressed in a member of the operation object. The name of the operation member is one of: "add", "remove", "replace".
+
+The member value is a string containing a restricted json pointer value that references the location within the target image to perform the operation. It is an error condition if an operation object contains no recognized operation member or more than one operation
+
+* add
+
+The "add" operation adds a new value at a specified location in the target image. The location must reference an image property to add to an existing image. The operation object contains a "value" member that specifies the value to be added.
+
+Example:
+
+    { "add": "/login-name", "value": "kvothe"}
+
+* remove
+
+The "remove" operation removes the specified image property in the target image. It is an error condition if no image property exists at the specified location.
+
+Example:
+
+    { "remove": "/login-name" }
+    
+* replace
+
+The "replace" operation replaces the value of the specified image property in the target image with a new value. The operation object contains a "value" member that specifies the replacement value.
+
+Example:
+
+    { "replace": "/login-name", "value": "kote" }
+    
+This operations is functionally identical to expressing a "remove" operation for an image property, followed immediately by an "add" operation at the same location with the replacement value.
+
+It is an error condition if the specified image property does not exist for the target image.
